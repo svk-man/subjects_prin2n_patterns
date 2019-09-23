@@ -14,7 +14,7 @@ public class Application {
     public void start() {
         this.shapes = generateShapes();
 
-        gui = new ApplicationGUI(300, 200);
+        gui = new ApplicationGUI(720, 520);
         gui.generate();
     }
 
