@@ -1,15 +1,30 @@
 package shapes;
 
+import java.awt.*;
 import java.util.Objects;
 
-public abstract class Shape {
+public abstract class Shape implements Cloneable {
 
-    public int x;
-    public int y;
-    public String color;
+    private int x;
+    private int y;
+    private String color;
 
-    public Shape() {
+    public int getX() {
+        return x;
+    }
 
+    public int getY() {
+        return y;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public Shape(int x, int y, String color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
     }
 
     public Shape(Shape shape) {
@@ -28,4 +43,8 @@ public abstract class Shape {
         Shape shape2 = (Shape) object2;
         return shape2.x == x && shape2.y == y && Objects.equals(shape2.color, color);
     }
+
+    public abstract void draw(Graphics g);
+
+    public abstract void drawIcon(Graphics g, int width, int height);
 }
