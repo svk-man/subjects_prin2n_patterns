@@ -6,6 +6,7 @@ import shapes.Rectangle;
 import shapes.Shape;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -38,7 +39,7 @@ public class AppView extends JFrame {
 
         // Панель фигур
         createShapesPanel();
-        //shapesToolBar.setAlignmentX(JToolBar.LEFT_ALIGNMENT);
+        //shapesToolBar.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         mainBox.add(shapesToolBar);
 
         // Информационная панель фигуры
@@ -58,6 +59,7 @@ public class AppView extends JFrame {
         int borderSize = 2;
         int centerX = 25 + borderSize;
         int centerY = 25 + borderSize;
+        shapesToolBar.setFloatable(false);
         shapesToolBar.add(Box.createHorizontalStrut(10));
 
         ArrayList<Shape> shapesList = new ArrayList<Shape>();
@@ -68,9 +70,7 @@ public class AppView extends JFrame {
             ShapeIcon shapeIcon = new ShapeIcon(shapeType, (shapes.Shape)shapeItem);
             JButton buttonShape = new JButton(shapeIcon);
 
-            buttonShape.setBorder(BorderFactory.createLineBorder(Color.BLUE, borderSize));
-            //buttonShape.setHorizontalAlignment(JButton.CENTER);
-            //buttonShape.setVerticalAlignment(JButton.CENTER);
+            //buttonShape.setBorder(BorderFactory.createLineBorder(Color.BLUE, borderSize));
             buttonShape.setFocusPainted(true);
             buttonShape.setContentAreaFilled(false);
             buttonShape.setMargin(new Insets(0, 0, 0, 0));
