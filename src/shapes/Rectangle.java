@@ -21,19 +21,6 @@ public class Rectangle extends Shape {
         this.height = height;
     }
 
-    public Rectangle(Rectangle rectangle) {
-        super(rectangle);
-        if (rectangle != null) {
-            this.width = rectangle.width;
-            this.height = rectangle.height;
-        }
-    }
-
-    @Override
-    public Shape clone() {
-        return new Rectangle(this);
-    }
-
     @Override
     public boolean equals(Object object2) {
         if (!(object2 instanceof Rectangle) || !super.equals(object2)) return false;
@@ -44,13 +31,6 @@ public class Rectangle extends Shape {
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.getColor(getColor()));
-        g.fillRect(getX(), getY(), getWidth(), getHeight());
-    }
-
-    @Override
-    public void drawIcon(Graphics g, int width, int height) {
-        g.setColor(Color.getColor(getColor()));
-        g.fillRect(0, 0, width, height);
-        g.dispose();
+        g.fillRect(getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(), getHeight());
     }
 }

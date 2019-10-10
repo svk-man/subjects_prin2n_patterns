@@ -3,7 +3,7 @@ package shapes;
 import java.awt.*;
 import java.util.Objects;
 
-public abstract class Shape implements Cloneable {
+public abstract class Shape  {
 
     private int x;
     private int y;
@@ -35,7 +35,7 @@ public abstract class Shape implements Cloneable {
         }
     }
 
-    public abstract Shape clone();
+//    public abstract Shape clone();
 
     @Override
     public boolean equals(Object object2) {
@@ -46,5 +46,5 @@ public abstract class Shape implements Cloneable {
 
     public abstract void draw(Graphics g);
 
-    public abstract void drawIcon(Graphics g, int width, int height);
+    //public abstract void drawIcon(Graphics g, int width, int height);
 }

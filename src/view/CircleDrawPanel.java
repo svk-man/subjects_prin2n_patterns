@@ -21,7 +21,7 @@ public class CircleDrawPanel extends ShapeDrawPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (circle != null) {
-            g.fillOval(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), circle.getRadius());
+            //g.fillOval(circle.getCenterX(), circle.getCenterY(), circle.getRadius(), circle.getRadius());
         }
     }
 }

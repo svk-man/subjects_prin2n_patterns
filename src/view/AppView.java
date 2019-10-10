@@ -2,6 +2,7 @@ package view;
 
 import model.AppModel;
 import shapes.Circle;
+import shapes.Rectangle;
 import shapes.Shape;
 
 import javax.swing.*;
@@ -20,12 +21,12 @@ public class AppView extends JFrame {
     private JPanel shapeDrawPanel = new JPanel();
     private JPanel shapeOptionsPanel = new JPanel();
 
-    private AppModel appModel = new AppModel();
+    ///private AppModel appModel = new AppModel();
 
     public AppView(int width, int height) {
         super();
 
-        appModel.start();
+        //appModel.start();
 
         // Предварительные настройки
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,7 +38,7 @@ public class AppView extends JFrame {
 
         // Панель фигур
         createShapesPanel();
-        shapesToolBar.setAlignmentX(JToolBar.LEFT_ALIGNMENT);
+        //shapesToolBar.setAlignmentX(JToolBar.LEFT_ALIGNMENT);
         mainBox.add(shapesToolBar);
 
         // Информационная панель фигуры
@@ -55,26 +56,17 @@ public class AppView extends JFrame {
 
     private void createShapesPanel() {
         int borderSize = 2;
+        int centerX = 25 + borderSize;
+        int centerY = 25 + borderSize;
         shapesToolBar.add(Box.createHorizontalStrut(10));
 
-        ArrayList<Shape> shapesList = appModel.getShapes();
+        ArrayList<Shape> shapesList = new ArrayList<Shape>();
+        shapesList.add(new Circle(centerX, centerY, 30, "black"));
+        shapesList.add(new Rectangle(centerX, centerY, 40, 20, "black"));
         for(Shape shapeItem : shapesList) {
-            JButton buttonShape = new JButton(new Icon() {
-                @Override
-                public void paintIcon(Component c, Graphics g, int x, int y) {
-                    shapeItem.drawIcon(g, getIconWidth() + borderSize, getIconHeight() + borderSize);
-                }
-
-                @Override
-                public int getIconWidth() {
-                    return 50;
-                }
-
-                @Override
-                public int getIconHeight() {
-                    return 50;
-                }
-            });
+            String shapeType = shapeItem.getClass().getSimpleName();
+            ShapeIcon shapeIcon = new ShapeIcon(shapeType, (shapes.Shape)shapeItem);
+            JButton buttonShape = new JButton(shapeIcon);
 
             buttonShape.setBorder(BorderFactory.createLineBorder(Color.BLUE, borderSize));
             //buttonShape.setHorizontalAlignment(JButton.CENTER);
@@ -111,7 +103,6 @@ public class AppView extends JFrame {
             });
 
             shapesToolBar.add(buttonShape);
-            shapesToolBar.addSeparator();
         }
     }
 
