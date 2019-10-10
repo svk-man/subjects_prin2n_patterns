@@ -79,6 +79,21 @@ public class AppView extends JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     System.out.print(e);
+                    JButton button = (JButton) e.getComponent();
+                    ShapeIcon shapeIcon =  (ShapeIcon) button.getIcon();
+                    String shapeType = shapeIcon.getShape().getClass().getSimpleName();
+                    switch (shapeType) {
+                        case "Circle":
+                            Circle circle = (Circle) shapeIcon.getShape();
+                            ((CircleDrawPanel) shapeDrawPanel).setCircle(circle);
+                            shapeDrawPanel.repaint();
+                            break;
+                        case "Rectangle":
+                            Rectangle rectangle = (Rectangle) shapeIcon.getShape();
+                            ((RectangleDrawPanel) shapeDrawPanel).setRectangle(rectangle);
+                            shapeDrawPanel.repaint();
+                            break;
+                    }
                 }
 
                 @Override

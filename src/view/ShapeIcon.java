@@ -24,6 +24,17 @@ public class ShapeIcon implements Icon {
         }
     }
 
+    public Shape getShape() {
+        switch (this.type) {
+            case "Circle":
+                return (Shape) circle;
+            case "Rectangle":
+                return (Shape) rectangle;
+        }
+
+        return null;
+    }
+
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         switch (this.type) {
