@@ -1,15 +1,14 @@
 package view;
 
-import shapes.Circle;
-import shapes.Rectangle;
+import shapes.MyRectangle;
 
 import java.awt.*;
 
 public class RectangleDrawPanel extends ShapeDrawPanel {
 
-    private Rectangle rectangle;
+    private MyRectangle rectangle;
 
-    public void setRectangle(Rectangle rectangle) {
+    public void setRectangle(MyRectangle rectangle) {
         this.rectangle = rectangle;
     }
 

@@ -1,15 +1,15 @@
 package view;
 
-import shapes.Circle;
+import shapes.MyCircle;
+import shapes.MyShape;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class CircleDrawPanel extends ShapeDrawPanel {
 
-    private Circle circle;
+    private MyCircle circle;
 
-    public void setCircle(Circle circle) {
+    public void setCircle(MyCircle circle) {
         this.circle = circle;
     }
 
