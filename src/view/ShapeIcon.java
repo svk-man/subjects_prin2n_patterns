@@ -1,49 +1,48 @@
 package view;
 
-import shapes.Circle;
-import shapes.Shape;
+import shapes.MyCircle;
+import shapes.MyShape;
+import shapes.MyRectangle;
 
 import javax.swing.*;
 import java.awt.*;
+import shapes.MyTriangle;
 
 public class ShapeIcon implements Icon {
 
-    private String type;
-    private Circle circle;
-    private shapes.Rectangle rectangle;
+    private MyShape shape;
 
-    public ShapeIcon(String type, Shape shape) {
-        this.type = type;
-        switch (this.type) {
-            case "Circle":
-                this.circle = (Circle) shape;
-                break;
-            case "Rectangle":
-                this.rectangle = (shapes.Rectangle) shape;
-                break;
-        }
+    public ShapeIcon(MyShape shape) {
+        this.shape = shape;
     }
 
-    public Shape getShape() {
-        switch (this.type) {
-            case "Circle":
-                return (Shape) circle;
-            case "Rectangle":
-                return (Shape) rectangle;
-        }
-
-        return null;
+    public MyShape getShape() {
+        return shape;
     }
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
-        switch (this.type) {
-            case "Circle":
-                circle.draw(g);
-                break;
-            case "Rectangle":
-                rectangle.draw(g);
-                break;
+        
+       int width = getIconWidth() - x;
+       int height = getIconHeight() - y;
+        
+        shape.setX(width/2 + x);
+        shape.setY(height/2 + y);
+
+        if(shape instanceof MyCircle) {
+
+            MyCircle circle = (MyCircle) shape;
+            circle.setRadius( Math.min( width, height ) );
+            shape.draw(g);
+
+        } else if(shape instanceof MyRectangle) {
+
+            MyRectangle rect = (MyRectangle) shape;
+            rect.setHeight( height );
+            rect.setWidth( width );
+            shape.draw(g);
+        } else if(shape instanceof MyTriangle) {
+            g.drawString("T", getIconWidth()/2-2, getIconHeight()/2+8);
         }
     }
 

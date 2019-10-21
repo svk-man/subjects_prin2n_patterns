@@ -1,39 +1,43 @@
 package view;
 
-import shapes.Circle;
+import javax.swing.Box;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import shapes.MyCircle;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import java.awt.*;
 
 public class CircleOptionsPanel extends ShapeOptionsPanel {
 
-    private Circle circle;
+    SpinnerModel radiusRange;
 
-    public void setCircle(Circle circle) {
-        this.circle = circle;
+    public MyCircle getShape() {
+        return (MyCircle)super.getShape();
     }
 
-    public CircleOptionsPanel(int width, int height) {
-        super(width, height);
+    public CircleOptionsPanel(int width, int height, MyCircle circle) {
+        super(width, height, circle);
+        
+        Box box = Box.createHorizontalBox();
+        
+        box.add( new JLabel("Радиус    ") );
+        
+        radiusRange = new SpinnerNumberModel(getShape().getRadius(), 20, 300, 3);
+        radiusRange.addChangeListener( new RadiusController() );
+        box.add( new JSpinner(radiusRange) );
+        
+        add(box);
     }
+    
+    
+    private class RadiusController implements ChangeListener {
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        if (circle != null) {
-            String[] tableHeaders = {"Свойство", "Значение"};
-            String[][] tableValues = {{"Радиус", String.valueOf(circle.getRadius())}};
-
-            JTable table = getTable();
-            DefaultTableModel tableModel = new DefaultTableModel();
-            tableModel.addColumn(tableHeaders);
-            tableModel.addRow(tableValues);
-            table.setModel(tableModel);
-            setTable(table);
-        }
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            getShape().setRadius( (Integer) radiusRange.getValue() );
+        }        
     }
 }

@@ -1,178 +1,142 @@
 package view;
 
-import model.AppModel;
-import shapes.Circle;
-import shapes.Rectangle;
-import shapes.Shape;
+import shapes.MyCircle;
+import shapes.MyRectangle;
+import shapes.MyShape;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import shapes.MyTriangle;
 
 public class AppView extends JFrame {
 
-    private final int WIDTH = 720;
-    private final int HEIGHT = 400;
+    private final int TOOL_BUTTON_SIZE = 25; 
+    private final int DRAW_PANEL_WIDTH = 350;
+    private final int OPTIONS_PANEL_WIDTH = 200;
+    private final int PANEL_HEIGHT = 400;
+    
+    private ShapeDrawPanel shapeDrawPanel;
+    private ShapeOptionsPanel shapeOptionsPanel;
 
-    private JToolBar shapesToolBar = new JToolBar();
-    private JPanel shapeDrawPanel = new JPanel();
-    private JPanel shapeOptionsPanel = new JPanel();
-
-    ///private AppModel appModel = new AppModel();
-
-    public AppView(int width, int height) {
+    public AppView() {
         super();
 
-        //appModel.start();
-
-        // Предварительные настройки
+        // Настройки окна
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width, height);
+        setTitle("Примитивы");
 
-        this.setTitle("Shapes Application");
-
+        // Создаем топ-контейнер
         Box mainBox = Box.createVerticalBox();
 
-        // Панель фигур
-        createShapesPanel();
-        //shapesToolBar.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        mainBox.add(shapesToolBar);
+        // Создаем панель инструментов с доступными примитивами
+        mainBox.add(createShapesToolBar());
 
-        // Информационная панель фигуры
+        // Создаем панели для отображения примитива и настроек примитива
         Box innerBox = Box.createHorizontalBox();
-        createShapeDrawPanel();
-        createShapeOptionsPanel();
+        innerBox.setAlignmentX(LEFT_ALIGNMENT);
+        shapeDrawPanel = new ShapeDrawPanel( DRAW_PANEL_WIDTH, PANEL_HEIGHT );
         innerBox.add(shapeDrawPanel);
+        shapeOptionsPanel = new ShapeOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, null );
         innerBox.add(shapeOptionsPanel);
+
         mainBox.add(innerBox);
 
+        // Подстраиваем размеры и фиксируем их
         setContentPane(mainBox);
         pack();
         setResizable(false);
     }
 
-    private void createShapesPanel() {
-        int borderSize = 2;
-        int centerX = 25 + borderSize;
-        int centerY = 25 + borderSize;
+    private JToolBar createShapesToolBar() {
+
+        JToolBar shapesToolBar = new JToolBar();
+        shapesToolBar.setAlignmentX(LEFT_ALIGNMENT);
+
+        final int BORDER_SIZE = 2;        
+        
+        int centerX = TOOL_BUTTON_SIZE + BORDER_SIZE;
+        int centerY = TOOL_BUTTON_SIZE + BORDER_SIZE;
         shapesToolBar.setFloatable(false);
         shapesToolBar.add(Box.createHorizontalStrut(10));
 
-        ArrayList<Shape> shapesList = new ArrayList<Shape>();
-        shapesList.add(new Circle(centerX, centerY, 30, "black"));
-        shapesList.add(new Rectangle(centerX, centerY, 40, 20, "black"));
-        for(Shape shapeItem : shapesList) {
-            String shapeType = shapeItem.getClass().getSimpleName();
-            ShapeIcon shapeIcon = new ShapeIcon(shapeType, (shapes.Shape)shapeItem);
-            JButton buttonShape = new JButton(shapeIcon);
+        // Список доступных примитивов
+        ArrayList<MyShape> shapesList = new ArrayList<>();
+        shapesList.add(new MyCircle(centerX, centerY, TOOL_BUTTON_SIZE, Color.BLACK));
+        shapesList.add(new MyRectangle(centerX, centerY, TOOL_BUTTON_SIZE, TOOL_BUTTON_SIZE, Color.BLACK));
+        shapesList.add(new MyTriangle(centerX, centerY, Color.BLACK));
 
-            //buttonShape.setBorder(BorderFactory.createLineBorder(Color.BLUE, borderSize));
+        CreateShapeContoller createController = new CreateShapeContoller();
+        
+        for (MyShape shapeItem : shapesList) {
+
+            JButton buttonShape = new JButton(new ShapeIcon(shapeItem));
+
             buttonShape.setFocusPainted(true);
             buttonShape.setContentAreaFilled(false);
             buttonShape.setMargin(new Insets(0, 0, 0, 0));
 
-            buttonShape.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.out.print(e);
-                    JButton button = (JButton) e.getComponent();
-                    ShapeIcon shapeIcon =  (ShapeIcon) button.getIcon();
-                    String shapeType = shapeIcon.getShape().getClass().getSimpleName();
-                    switch (shapeType) {
-                        case "Circle":
-                            Circle circle = (Circle) shapeIcon.getShape();
-                            ((CircleDrawPanel) shapeDrawPanel).setCircle(circle);
-                            shapeDrawPanel.repaint();
-                            break;
-                        case "Rectangle":
-                            Rectangle rectangle = (Rectangle) shapeIcon.getShape();
-                            ((RectangleDrawPanel) shapeDrawPanel).setRectangle(rectangle);
-                            shapeDrawPanel.repaint();
-                            break;
-                    }
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    buttonShape.setForeground(Color.BLUE);
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    buttonShape.setForeground(Color.getColor(shapeItem.getColor()));
-                }
-            });
+            buttonShape.addMouseListener( createController );
 
             shapesToolBar.add(buttonShape);
         }
+
+        return shapesToolBar;
     }
 
-    private void createShapeDrawPanel() {
-        shapeDrawPanel = new CircleDrawPanel(WIDTH / 2, HEIGHT);
-        ((CircleDrawPanel) shapeDrawPanel).setCircle(new Circle(shapeDrawPanel.getWidth() / 2, shapeDrawPanel.getHeight() / 2, 50, "red"));
-        shapeDrawPanel.setBorder(new LineBorder(Color.black));
+    private void setShapeOptionsPanel(ShapeOptionsPanel optionsPanel) {
+
+        Container parent = shapeOptionsPanel.getParent();
+        parent.remove(shapeOptionsPanel);
+        parent.add(optionsPanel);
+        shapeOptionsPanel = optionsPanel;
+        pack();
     }
+    
+    private static MyShape extractShape(JButton btn) {
+        ShapeIcon shapeIcon = (ShapeIcon) btn.getIcon();
+        return shapeIcon.getShape();        
+    } 
 
-    private void createShapeOptionsPanel() {
-        shapeOptionsPanel = new CircleOptionsPanel(WIDTH / 2, HEIGHT);
-        ((CircleDrawPanel) shapeDrawPanel).setCircle(new Circle(shapeDrawPanel.getWidth() / 2, shapeDrawPanel.getHeight() / 2, 50, "red"));
-    }
-
-    /*private int width;
-    private int height;
-
-    public AppView(int width, int height) {
-        this.width = width;
-        this.height = height;
-    }*/
-
-    /*public void generate() {
-
-        JFrame myWindow = new JFrame("Пробное окно");
-
-
-        // Панель инструментов
-
-
-        // Отрисовка овала
-        JPanel panelCanvas = new JPanel();
-        panelCanvas.add(new OvalComponent());
-        myWindow.add(panelCanvas, "West");
-    }
-
-    class OvalComponent extends JComponent  {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            // int top = (getHeight() - ovalHeight) / 2;
-
-            Graphics2D g2d = (Graphics2D) g;
-
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            g2d.setColor(Color.GREEN);
-            //g2d.drawOval(10,10,100,100);//I like fill :P
-            g2d.fillOval(10,10,100,100);
-        }
+    private class CreateShapeContoller extends MouseAdapter {
 
         @Override
-        public Dimension getPreferredSize() {
-            return new Dimension(150, 150);
+        public void mouseClicked(MouseEvent e) {
+
+            // Извлекаем примитив из кнопки инструментов
+            MyShape shape = extractShape ( (JButton) e.getComponent() );
+
+            if (shape instanceof MyCircle) { // окружность
+
+                // Создаем отображаемый примитив и помещаем в панель для отображения
+                MyCircle newCircle = new MyCircle(0, 0, 100, Color.GREEN);
+                shapeDrawPanel.setShape(newCircle);
+  
+                // Создаем панель для изменения параметров примитива
+                CircleOptionsPanel optionsPanel = new CircleOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newCircle );
+                setShapeOptionsPanel(optionsPanel);
+            
+            } else if(shape instanceof MyRectangle) { // прямоугольник
+                
+                // Создаем отображаемый примитив и помещаем в панель для отображения
+                MyRectangle newRectangle = new MyRectangle(0, 0, 100, 100, Color.BLUE);
+                shapeDrawPanel.setShape(newRectangle);
+  
+                // Создаем панель для изменения параметров примитива
+                RectangleOptionsPanel optionsPanel = new RectangleOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newRectangle );
+                setShapeOptionsPanel(optionsPanel);
+            } else if(shape instanceof MyTriangle) { // треугольник
+                
+                // Создаем отображаемый примитив и помещаем в панель для отображения
+                MyTriangle newTriangle = new MyTriangle(0, 0, Color.YELLOW);
+                shapeDrawPanel.setShape(newTriangle);
+  
+                // Создаем панель для изменения параметров примитива
+                TriangleOptionsPanel optionsPanel = new TriangleOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newTriangle );
+                setShapeOptionsPanel(optionsPanel);
+            }
         }
-    }*/
+    }    
 }
