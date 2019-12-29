@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public abstract class MyShape  {
+public abstract class MyShape implements Cloneable {
 
     private int x;
     private int y;
@@ -31,11 +31,15 @@ public abstract class MyShape  {
         return color;
     }
 
+    public void setColor(Color color) {this.color = color;}
+
     public MyShape(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         this.color = color;
     }
+
+    public abstract MyShape clone();
 
       public abstract void draw(Graphics g);
       

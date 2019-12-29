@@ -20,6 +20,10 @@ public class MyCircle extends MyShape {
         this.radius = radius;
     }
 
+    public MyShape clone() {
+        return new MyCircle(this.getX(), this.getY(), this.getRadius(), this.getColor());
+    }
+
     @Override
     public void draw(Graphics g) {
         g.setColor( getColor() );

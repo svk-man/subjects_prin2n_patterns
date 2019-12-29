@@ -35,6 +35,10 @@ public class MyRectangle extends MyAbstractPolygon {
         
         rebuildVertexesInLocalCoordinates();        
     }
+
+    public MyShape clone() {
+        return new MyRectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getColor());
+    }
     
     private void rebuildVertexesInLocalCoordinates() {
         removeAllVertexes();

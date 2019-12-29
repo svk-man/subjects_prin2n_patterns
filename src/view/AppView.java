@@ -21,6 +21,8 @@ public class AppView extends JFrame {
     private ShapeDrawPanel shapeDrawPanel;
     private ShapeOptionsPanel shapeOptionsPanel;
 
+    private ArrayList<MyShape> shapesList = new ArrayList<>();
+
     public AppView() {
         super();
 
@@ -63,7 +65,6 @@ public class AppView extends JFrame {
         shapesToolBar.add(Box.createHorizontalStrut(10));
 
         // Список доступных примитивов
-        ArrayList<MyShape> shapesList = new ArrayList<>();
         shapesList.add(new MyCircle(centerX, centerY, TOOL_BUTTON_SIZE, Color.BLACK));
         shapesList.add(new MyRectangle(centerX, centerY, TOOL_BUTTON_SIZE, TOOL_BUTTON_SIZE, Color.BLACK));
         shapesList.add(new MyTriangle(centerX, centerY, Color.BLACK));
@@ -111,7 +112,12 @@ public class AppView extends JFrame {
             if (shape instanceof MyCircle) { // окружность
 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
-                MyCircle newCircle = new MyCircle(0, 0, 100, Color.GREEN);
+                MyCircle circle = (MyCircle) shape;
+                MyCircle newCircle =  (MyCircle) circle.clone();
+                newCircle.setRadius(100);
+                newCircle.setX(0);
+                newCircle.setY(0);
+                newCircle.setColor(Color.GREEN);
                 shapeDrawPanel.setShape(newCircle);
   
                 // Создаем панель для изменения параметров примитива
@@ -121,7 +127,13 @@ public class AppView extends JFrame {
             } else if(shape instanceof MyRectangle) { // прямоугольник
                 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
-                MyRectangle newRectangle = new MyRectangle(0, 0, 100, 100, Color.BLUE);
+                MyRectangle rectangle = (MyRectangle) shape;
+                MyRectangle newRectangle =  (MyRectangle) rectangle.clone();
+                newRectangle.setWidth(100);
+                newRectangle.setHeight(100);
+                newRectangle.setX(0);
+                newRectangle.setY(0);
+                newRectangle.setColor(Color.BLUE);
                 shapeDrawPanel.setShape(newRectangle);
   
                 // Создаем панель для изменения параметров примитива
@@ -130,7 +142,11 @@ public class AppView extends JFrame {
             } else if(shape instanceof MyTriangle) { // треугольник
                 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
-                MyTriangle newTriangle = new MyTriangle(0, 0, Color.YELLOW);
+                MyTriangle triangle = (MyTriangle) shape;
+                MyTriangle newTriangle =  (MyTriangle) triangle.clone();
+                newTriangle.setX(0);
+                newTriangle.setY(0);
+                newTriangle.setColor(Color.YELLOW);
                 shapeDrawPanel.setShape(newTriangle);
   
                 // Создаем панель для изменения параметров примитива

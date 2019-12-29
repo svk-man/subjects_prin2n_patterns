@@ -65,6 +65,11 @@ public class MyAbstractPolygon extends MyShape {
     }
 
     @Override
+    public MyShape clone() {
+        return new MyAbstractPolygon(this.getX(), this.getY(), this.getColor());
+    }
+
+    @Override
     public void draw(Graphics g) {
         g.setColor( getColor() );
         

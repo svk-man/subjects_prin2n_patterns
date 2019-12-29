@@ -10,5 +10,10 @@ public class MyTriangle extends MyAbstractPolygon {
         addVertex(0, 0);
         addVertex(-100, 50);
         addVertex(50, 100);        
-    }   
+    }
+
+    @Override
+    public MyShape clone() {
+        return new MyTriangle(this.getX(), this.getY(), this.getColor());
+    }
 }
