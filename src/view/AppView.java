@@ -22,6 +22,7 @@ public class AppView extends JFrame {
 
     // Реализация паттерна "Фабричный метод"
     private final MyShapeFactory myShapeFactory = new MyShapeFactory();
+    private final ShapeOptionsPanelFactory shapeOptionsPanelFactory = new ShapeOptionsPanelFactory();
 
     public AppView() {
         super();
@@ -122,9 +123,9 @@ public class AppView extends JFrame {
                 shapeDrawPanel.setShape(newCircle);
   
                 // Создаем панель для изменения параметров примитива
-                CircleOptionsPanel optionsPanel = new CircleOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newCircle );
+                // Реализация паттерна "Фабричный метод"
+                CircleOptionsPanel optionsPanel = (CircleOptionsPanel) shapeOptionsPanelFactory.createShapeOptionsPanel(MyShapeType.MY_CIRCLE, OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newCircle, null, null );
                 setShapeOptionsPanel(optionsPanel);
-            
             } else if(shape instanceof MyRectangle) { // прямоугольник
                 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
@@ -138,7 +139,8 @@ public class AppView extends JFrame {
                 shapeDrawPanel.setShape(newRectangle);
   
                 // Создаем панель для изменения параметров примитива
-                RectangleOptionsPanel optionsPanel = new RectangleOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newRectangle );
+                // Реализация паттерна "Фабричный метод"
+                RectangleOptionsPanel optionsPanel = (RectangleOptionsPanel) shapeOptionsPanelFactory.createShapeOptionsPanel(MyShapeType.MY_RECTANGLE, OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, null, null, newRectangle);
                 setShapeOptionsPanel(optionsPanel);
             } else if(shape instanceof MyTriangle) { // треугольник
                 
@@ -151,7 +153,8 @@ public class AppView extends JFrame {
                 shapeDrawPanel.setShape(newTriangle);
   
                 // Создаем панель для изменения параметров примитива
-                TriangleOptionsPanel optionsPanel = new TriangleOptionsPanel( OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newTriangle );
+                // Реализация паттерна "Фабричный метод"
+                TriangleOptionsPanel optionsPanel = (TriangleOptionsPanel) shapeOptionsPanelFactory.createShapeOptionsPanel(MyShapeType.MY_TRIANGLE, OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, null, newTriangle, null);
                 setShapeOptionsPanel(optionsPanel);
             }
         }
