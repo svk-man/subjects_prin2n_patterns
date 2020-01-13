@@ -174,6 +174,15 @@ public class MyCompoundShape extends MyShape {
     }
 
     @Override
+    public void scale(int size) {
+        for (MyShape child : children) {
+            child.scale(size);
+        }
+
+        fireStateChanged();
+    }
+
+    @Override
     public MyShape copy() {
         MyCompoundShape tmpCompoundShape = new MyCompoundShape();
         for (MyShape child : children) {

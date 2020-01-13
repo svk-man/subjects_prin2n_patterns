@@ -44,6 +44,8 @@ public abstract class MyShape implements Cloneable { // Реализация п�
 
     public abstract void  rotateClockwise();
 
+    public abstract void scale(int size);
+
     // -------------------------------------------------------------------
     private ArrayList<ChangeListener> listners = new ArrayList<>();
 

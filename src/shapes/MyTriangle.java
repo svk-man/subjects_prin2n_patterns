@@ -1,6 +1,7 @@
 package shapes;
 
 import java.awt.Color;
+import java.awt.geom.Point2D;
 
 public class MyTriangle extends MyAbstractPolygon {
     

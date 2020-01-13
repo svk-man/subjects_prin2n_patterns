@@ -60,6 +60,12 @@ public class MyRectangle extends MyAbstractPolygon {
         height = buffer;
     }
 
+    public void scale(int size) {
+        this.width = width + size;
+        this.height = height + size;
+        fireStateChanged();
+    }
+
     // Реализация паттерна "Прототип". Шаг 3. Реализуем в каждом классе метод copy
     public MyShape copy() {
         return new MyRectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight(), this.getColor());

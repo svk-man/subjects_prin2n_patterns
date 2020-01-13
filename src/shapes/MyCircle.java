@@ -31,6 +31,11 @@ public class MyCircle extends MyShape {
     public void rotateClockwise() {
     }
 
+    public void scale(int size) {
+        this.radius = radius + size;
+        fireStateChanged();
+    }
+
     // Реализация паттерна "Прототип". Шаг 3. Реализуем в каждом классе метод copy
     public MyShape copy() {
         return new MyCircle(this.getX(), this.getY(), this.getRadius(), this.getColor());

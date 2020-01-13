@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import shapes.MyCompoundShape;
-import shapes.MyTriangle;
 
 public class CompoundOptionsPanel extends ShapeOptionsPanel {
 
@@ -17,8 +16,8 @@ public class CompoundOptionsPanel extends ShapeOptionsPanel {
     public CompoundOptionsPanel(int width, int height, MyCompoundShape compoundShape) {
         super(width, height, compoundShape);
 
-        JButton btn = new JButton("Повернуть");
-        btn.addActionListener( new RotateController() );
+        JButton btn = new JButton("Масштабировать");
+        btn.addActionListener( new ScaleController() );
 
         add(btn);
     }
@@ -28,6 +27,14 @@ public class CompoundOptionsPanel extends ShapeOptionsPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             getShape().rotateClockwise();
+        }
+    }
+
+    private class ScaleController implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getShape().scale(2);
         }
     }
 }

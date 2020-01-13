@@ -91,6 +91,19 @@ public class MyAbstractPolygon extends MyShape {
         fireStateChanged();
     }
 
+    @Override
+    public void scale(int size) {
+        for( Point2D vertex : vertexesInLocalCoordinates ) {
+
+            double newX = getX() + size;
+            double newY = getY() + size;
+            vertex.setLocation(newX, newY);
+        }
+
+        fireStateChanged();
+    }
+
+
     // Реализация паттерна "Прототип". Шаг 3. Реализуем в каждом классе метод copy
     @Override
     public MyShape copy() {
