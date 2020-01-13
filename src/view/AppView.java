@@ -1,5 +1,7 @@
 package view;
 
+import builders.MyShapeBuilder;
+import director.Director;
 import shapes.*;
 
 import javax.swing.*;
@@ -67,9 +69,24 @@ public class AppView extends JFrame {
 
         // Список доступных примитивов
         // Реализация паттерна "Фабричный метод"
-        shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_CIRCLE, centerX, centerY, Color.BLACK, TOOL_BUTTON_SIZE, 0, 0));
+        /*shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_CIRCLE, centerX, centerY, Color.BLACK, TOOL_BUTTON_SIZE, 0, 0));
         shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_RECTANGLE, centerX, centerY, Color.BLACK, 0, TOOL_BUTTON_SIZE, TOOL_BUTTON_SIZE));
-        shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_TRIANGLE, centerX, centerY, Color.BLACK, 0, 0, 0));
+        shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_TRIANGLE, centerX, centerY, Color.BLACK, 0, 0, 0));*/
+
+        // Реализация паттерна "Строитель"
+        Director director = new Director();
+        // Директор получает объект конкретного строителя от клиента
+        // (приложения). Приложение само знает какой строитель использовать,
+        // чтобы получить нужный продукт.
+        MyShapeBuilder builder = new MyShapeBuilder();
+        director.constructMyCircleShape(builder);
+        // Готовый продукт возвращает строитель, так как Директор чаще всего не
+        // знает и не зависит от конкретных классов строителей и продуктов.
+        shapesList.add(builder.getResult(MyShapeType.MY_CIRCLE));
+        director.constructMyRectangleShape(builder);
+        shapesList.add(builder.getResult(MyShapeType.MY_RECTANGLE));
+        director.constructMyTriangleShape(builder);
+        shapesList.add(builder.getResult(MyShapeType.MY_TRIANGLE));
 
         CreateShapeContoller createController = new CreateShapeContoller();
         
