@@ -4,5 +4,6 @@ package shapes;
 public enum MyShapeType {
     MY_CIRCLE,
     MY_TRIANGLE,
-    MY_RECTANGLE
+    MY_RECTANGLE,
+    //MY_COMPOUND_SHAPE
 }

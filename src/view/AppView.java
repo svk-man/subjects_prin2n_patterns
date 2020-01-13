@@ -73,6 +73,7 @@ public class AppView extends JFrame {
         shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_RECTANGLE, centerX, centerY, Color.BLACK, 0, TOOL_BUTTON_SIZE, TOOL_BUTTON_SIZE));
         shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_TRIANGLE, centerX, centerY, Color.BLACK, 0, 0, 0));*/
 
+        /*
         // Реализация паттерна "Строитель"
         Director director = new Director();
         // Директор получает объект конкретного строителя от клиента
@@ -87,6 +88,18 @@ public class AppView extends JFrame {
         shapesList.add(builder.getResult(MyShapeType.MY_RECTANGLE));
         director.constructMyTriangleShape(builder);
         shapesList.add(builder.getResult(MyShapeType.MY_TRIANGLE));
+        */
+
+        // Реализация паттерна "Компоновщик"
+        MyShape myCompoundShape = new MyCompoundShape(
+                new MyCircle(centerX - 10, centerY + 30, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 90, centerY + 30, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 190, centerY + 30, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 35, centerY + 90, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 145, centerY + 90, TOOL_BUTTON_SIZE, Color.BLACK)
+        );
+
+        shapesList.add(myCompoundShape);
 
         CreateShapeContoller createController = new CreateShapeContoller();
         
@@ -172,6 +185,19 @@ public class AppView extends JFrame {
                 // Создаем панель для изменения параметров примитива
                 // Реализация паттерна "Фабричный метод"
                 TriangleOptionsPanel optionsPanel = (TriangleOptionsPanel) shapeOptionsPanelFactory.createShapeOptionsPanel(MyShapeType.MY_TRIANGLE, OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, null, newTriangle, null);
+                setShapeOptionsPanel(optionsPanel);
+            }  else if(shape instanceof MyCompoundShape) { // составной примитив
+
+                // Создаем отображаемый примитив и помещаем в панель для отображения
+                MyCompoundShape compoundShape = (MyCompoundShape) shape;
+                MyCompoundShape newCompoundShape =  (MyCompoundShape) compoundShape.copy(); // Реализация паттерна "Прототип". Шаг 4. Применяем копирование там, где возможно
+                newCompoundShape.setRadius(100);
+                newCompoundShape.setColor(Color.BLUE);
+                shapeDrawPanel.setShape(newCompoundShape);
+
+                // Создаем панель для изменения параметров примитива
+                // Реализация паттерна "Фабричный метод"
+                CompoundOptionsPanel optionsPanel = new CompoundOptionsPanel(OPTIONS_PANEL_WIDTH, PANEL_HEIGHT, newCompoundShape);
                 setShapeOptionsPanel(optionsPanel);
             }
         }

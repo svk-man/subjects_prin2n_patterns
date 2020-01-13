@@ -5,6 +5,8 @@ import java.awt.*;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import shapes.MyCompoundShape;
 import shapes.MyShape;
 
 public class ShapeDrawPanel extends JPanel {
@@ -18,8 +20,10 @@ public class ShapeDrawPanel extends JPanel {
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
 
-        this.shape.setX(centerX);
-        this.shape.setY(centerY);
+        if (shape instanceof MyCompoundShape) {
+            this.shape.setX(centerX / 3);
+            this.shape.setY(centerY / 2);
+        }
 
         this.shape.addListner(changeControoler);
 

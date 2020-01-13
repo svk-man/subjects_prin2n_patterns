@@ -4,7 +4,7 @@ import java.awt.*;
 
 // Реализация паттерна "Фабричный метод"
 public class MyShapeFactory {
-    public MyShape createMyShape(MyShapeType type, int x, int y, Color color, int radius, int width, int height) {
+    public MyShape createMyShape(MyShapeType type, int x, int y, Color color, int radius, int width, int height, MyShape... components) {
         MyShape myShape = null;
 
         switch (type) {
@@ -17,6 +17,9 @@ public class MyShapeFactory {
             case MY_RECTANGLE:
                 myShape = new MyRectangle(x, y, width, height, color);
                 break;
+            /*case MY_COMPOUND_SHAPE:
+                myShape = new MyCompoundShape(components);
+                break;*/
         }
 
         return myShape;

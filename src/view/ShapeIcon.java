@@ -1,12 +1,9 @@
 package view;
 
-import shapes.MyCircle;
-import shapes.MyShape;
-import shapes.MyRectangle;
+import shapes.*;
 
 import javax.swing.*;
 import java.awt.*;
-import shapes.MyTriangle;
 
 public class ShapeIcon implements Icon {
 
@@ -25,9 +22,11 @@ public class ShapeIcon implements Icon {
         
        int width = getIconWidth() - x;
        int height = getIconHeight() - y;
-        
-        shape.setX(width/2 + x);
-        shape.setY(height/2 + y);
+
+        if(!(shape instanceof MyCompoundShape)) {
+            shape.setX(width / 2 + x);
+            shape.setY(height / 2 + y);
+        }
 
         if(shape instanceof MyCircle) {
 
@@ -43,6 +42,8 @@ public class ShapeIcon implements Icon {
             shape.draw(g);
         } else if(shape instanceof MyTriangle) {
             g.drawString("T", getIconWidth()/2-2, getIconHeight()/2+8);
+        } else if(shape instanceof MyCompoundShape) {
+            g.drawString("C", getIconWidth()/2-2, getIconHeight()/2+8);
         }
     }
 
