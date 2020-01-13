@@ -113,7 +113,7 @@ public class AppView extends JFrame {
 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
                 MyCircle circle = (MyCircle) shape;
-                MyCircle newCircle =  (MyCircle) circle.clone();
+                MyCircle newCircle =  (MyCircle) circle.copy(); // Реализация паттерна "Прототип". Шаг 4. Применяем копирование там, где возможно
                 newCircle.setRadius(100);
                 newCircle.setX(0);
                 newCircle.setY(0);
@@ -128,7 +128,7 @@ public class AppView extends JFrame {
                 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
                 MyRectangle rectangle = (MyRectangle) shape;
-                MyRectangle newRectangle =  (MyRectangle) rectangle.clone();
+                MyRectangle newRectangle =  (MyRectangle) rectangle.copy(); // Реализация паттерна "Прототип". Шаг 4. Применяем копирование там, где возможно
                 newRectangle.setWidth(100);
                 newRectangle.setHeight(100);
                 newRectangle.setX(0);
@@ -143,7 +143,7 @@ public class AppView extends JFrame {
                 
                 // Создаем отображаемый примитив и помещаем в панель для отображения
                 MyTriangle triangle = (MyTriangle) shape;
-                MyTriangle newTriangle =  (MyTriangle) triangle.clone();
+                MyTriangle newTriangle =  (MyTriangle) triangle.copy(); // Реализация паттерна "Прототип". Шаг 4. Применяем копирование там, где возможно
                 newTriangle.setX(0);
                 newTriangle.setY(0);
                 newTriangle.setColor(Color.YELLOW);

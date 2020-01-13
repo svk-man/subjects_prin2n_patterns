@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public abstract class MyShape implements Cloneable {
+public abstract class MyShape implements Cloneable { // Реализация паттерна "Прототип". Шаг 1. Реализуем интерфейс Cloneable
 
     private int x;
     private int y;
@@ -39,22 +39,23 @@ public abstract class MyShape implements Cloneable {
         this.color = color;
     }
 
-    public abstract MyShape clone();
+    public abstract void draw(Graphics g);
 
-      public abstract void draw(Graphics g);
-      
-      public abstract void  rotateClockwise();      
-      
-      // -------------------------------------------------------------------
-      private ArrayList<ChangeListener> listners = new ArrayList<>();
-      
-      public void addListner(ChangeListener listner) {
-          listners.add(listner);
-      }
-      
-      protected void fireStateChanged() {
-          for( ChangeListener listner : listners ) {
-              listner.stateChanged( new ChangeEvent(this));
-          }
-      }      
+    public abstract void  rotateClockwise();
+
+    // -------------------------------------------------------------------
+    private ArrayList<ChangeListener> listners = new ArrayList<>();
+
+    public void addListner(ChangeListener listner) {
+        listners.add(listner);
+    }
+
+    protected void fireStateChanged() {
+        for( ChangeListener listner : listners ) {
+            listner.stateChanged( new ChangeEvent(this));
+        }
+    }
+
+    // Реализация паттерна "Прототип". Шаг 2. Создаем абстрактный метод copy
+    public abstract MyShape copy();
 }

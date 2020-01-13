@@ -65,11 +65,6 @@ public class MyAbstractPolygon extends MyShape {
     }
 
     @Override
-    public MyShape clone() {
-        return new MyAbstractPolygon(this.getX(), this.getY(), this.getColor());
-    }
-
-    @Override
     public void draw(Graphics g) {
         g.setColor( getColor() );
         
@@ -94,5 +89,11 @@ public class MyAbstractPolygon extends MyShape {
         }  
         
         fireStateChanged();
+    }
+
+    // Реализация паттерна "Прототип". Шаг 3. Реализуем в каждом классе метод copy
+    @Override
+    public MyShape copy() {
+        return new MyAbstractPolygon(this.getX(), this.getY(), this.getColor());
     }
 }

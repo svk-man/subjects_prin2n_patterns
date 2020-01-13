@@ -12,8 +12,9 @@ public class MyTriangle extends MyAbstractPolygon {
         addVertex(50, 100);        
     }
 
+    // Реализация паттерна "Прототип". Шаг 3. Реализуем в каждом классе метод copy
     @Override
-    public MyShape clone() {
+    public MyShape copy() {
         return new MyTriangle(this.getX(), this.getY(), this.getColor());
     }
 }

@@ -20,9 +20,6 @@ public class MyCircle extends MyShape {
         this.radius = radius;
     }
 
-    public MyShape clone() {
-        return new MyCircle(this.getX(), this.getY(), this.getRadius(), this.getColor());
-    }
 
     @Override
     public void draw(Graphics g) {
@@ -32,5 +29,10 @@ public class MyCircle extends MyShape {
 
     @Override
     public void rotateClockwise() {
+    }
+
+    // Реализация паттерна "Прототип". Шаг 3. Реализуем в каждом классе метод copy
+    public MyShape copy() {
+        return new MyCircle(this.getX(), this.getY(), this.getRadius(), this.getColor());
     }
 }
