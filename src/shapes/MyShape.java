@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+// Реализация паттерна "Фабричный метод". Шаг 2. У нас есть абстрактный класс MyShape, от которого наследуются другие классы
 public abstract class MyShape implements Cloneable { // Реализация паттерна "Прототип". Шаг 1. Реализуем интерфейс Cloneable
 
     private int x;

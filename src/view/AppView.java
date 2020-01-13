@@ -1,15 +1,12 @@
 package view;
 
-import shapes.MyCircle;
-import shapes.MyRectangle;
-import shapes.MyShape;
+import shapes.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import shapes.MyTriangle;
 
 public class AppView extends JFrame {
 
@@ -22,6 +19,9 @@ public class AppView extends JFrame {
     private ShapeOptionsPanel shapeOptionsPanel;
 
     private ArrayList<MyShape> shapesList = new ArrayList<>();
+
+    // Реализация паттерна "Фабричный метод"
+    private final MyShapeFactory myShapeFactory = new MyShapeFactory();
 
     public AppView() {
         super();
@@ -65,9 +65,10 @@ public class AppView extends JFrame {
         shapesToolBar.add(Box.createHorizontalStrut(10));
 
         // Список доступных примитивов
-        shapesList.add(new MyCircle(centerX, centerY, TOOL_BUTTON_SIZE, Color.BLACK));
-        shapesList.add(new MyRectangle(centerX, centerY, TOOL_BUTTON_SIZE, TOOL_BUTTON_SIZE, Color.BLACK));
-        shapesList.add(new MyTriangle(centerX, centerY, Color.BLACK));
+        // Реализация паттерна "Фабричный метод"
+        shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_CIRCLE, centerX, centerY, Color.BLACK, TOOL_BUTTON_SIZE, 0, 0));
+        shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_RECTANGLE, centerX, centerY, Color.BLACK, 0, TOOL_BUTTON_SIZE, TOOL_BUTTON_SIZE));
+        shapesList.add(myShapeFactory.createMyShape(MyShapeType.MY_TRIANGLE, centerX, centerY, Color.BLACK, 0, 0, 0));
 
         CreateShapeContoller createController = new CreateShapeContoller();
         
