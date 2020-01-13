@@ -23,10 +23,10 @@ public class ShapeIcon implements Icon {
        int width = getIconWidth() - x;
        int height = getIconHeight() - y;
 
-        if(!(shape instanceof MyCompoundShape)) {
-            shape.setX(width / 2 + x);
-            shape.setY(height / 2 + y);
-        }
+//        if(!(shape instanceof MyCompoundShape)) {
+//            shape.setX(width / 2 + x);
+//            shape.setY(height / 2 + y);
+//        }
 
         if(shape instanceof MyCircle) {
 

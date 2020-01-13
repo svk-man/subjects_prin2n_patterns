@@ -92,11 +92,11 @@ public class AppView extends JFrame {
 
         // Реализация паттерна "Компоновщик"
         MyShape myCompoundShape = new MyCompoundShape(
-                new MyCircle(centerX - 10, centerY + 30, TOOL_BUTTON_SIZE, Color.BLACK),
-                new MyCircle(centerX + 90, centerY + 30, TOOL_BUTTON_SIZE, Color.BLACK),
-                new MyCircle(centerX + 190, centerY + 30, TOOL_BUTTON_SIZE, Color.BLACK),
-                new MyCircle(centerX + 35, centerY + 90, TOOL_BUTTON_SIZE, Color.BLACK),
-                new MyCircle(centerX + 145, centerY + 90, TOOL_BUTTON_SIZE, Color.BLACK)
+                new MyCircle(centerX - 40, centerY + 120, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 150, centerY + 120, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 240, centerY + 120, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 100, centerY + 200, TOOL_BUTTON_SIZE, Color.BLACK),
+                new MyCircle(centerX + 190, centerY + 200, TOOL_BUTTON_SIZE, Color.BLACK)
         );
 
         shapesList.add(myCompoundShape);

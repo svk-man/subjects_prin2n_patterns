@@ -74,7 +74,9 @@ public class MyCompoundShape extends MyShape {
     public void setX(int x) {
         if (children.size() != 0) {
             for (MyShape child : children) {
-                child.setX(x + child.getX());
+                if (child.getX() < x) {
+                    child.setX(x);
+                }
             }
         }
     }
@@ -83,7 +85,9 @@ public class MyCompoundShape extends MyShape {
     public void setY(int y) {
         if (children.size() != 0) {
             for (MyShape child : children) {
-                child.setY(y + child.getY());
+                if (child.getY() < y) {
+                    child.setY(y);
+                }
             }
         }
     }

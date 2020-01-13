@@ -20,10 +20,8 @@ public class ShapeDrawPanel extends JPanel {
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
 
-        if (shape instanceof MyCompoundShape) {
-            this.shape.setX(centerX / 3);
-            this.shape.setY(centerY / 2);
-        }
+        this.shape.setX(centerX / 2);
+        this.shape.setY(centerY / 2);
 
         this.shape.addListner(changeControoler);
 
