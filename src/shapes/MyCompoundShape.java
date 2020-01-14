@@ -102,69 +102,6 @@ public class MyCompoundShape extends MyShape {
         }
     }
 
-//    @Override
-//    public int getWidth() {
-//        int maxWidth = 0;
-//        int x = getX();
-//        for (MyShape child : children) {
-//            int childsRelativeX = child.getX() - x;
-//            int childWidth = childsRelativeX + child.getWidth();
-//            if (childWidth > maxWidth) {
-//                maxWidth = childWidth;
-//            }
-//        }
-//        return maxWidth;
-//    }
-
-//    @Override
-//    public int getHeight() {
-//        int maxHeight = 0;
-//        int y = getY();
-//        for (MyShape child : children) {
-//            int childsRelativeY = child.getY() - y;
-//            int childHeight = childsRelativeY + child.getHeight();
-//            if (childHeight > maxHeight) {
-//                maxHeight = childHeight;
-//            }
-//        }
-//        return maxHeight;
-//    }
-
-//    @Override
-//    public void move(int x, int y) {
-//        for (MyShape child : children) {
-//            child.move(x, y);
-//        }
-//    }
-
-//    @Override
-//    public boolean isInsideBounds(int x, int y) {
-//        for (MyShape child : children) {
-//            if (child.isInsideBounds(x, y)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    @Override
-//    public void unSelect() {
-//        super.unSelect();
-//        for (MyShape child : children) {
-//            child.unSelect();
-//        }
-//    }
-
-//    public boolean selectChildAt(int x, int y) {
-//        for (MyShape child : children) {
-//            if (child.isInsideBounds(x, y)) {
-//                child.select();
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
     @Override
     public void draw(Graphics graphics) {
         for (MyShape child : children) {
